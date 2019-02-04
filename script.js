@@ -1301,12 +1301,13 @@ console.log(profits2017)
 
 // Which month had the most cars?
 const salesByMonth2017 = carSales.filter(sale => sale.purchase_date.split("-")[0] === "2017")
-    .map(sale => sale.purchase_date.split("-")[1])
-    .reduce((tally, month) => {
+    .reduce((tally, sale) => {
+        let month = sale.purchase_date.split("-")[1]
         tally[month] = (tally[month] || 0) + 1
         return tally
-    }, [])
-const monthWithMostSales = Object.keys(salesByMonth2017).sort(function (a, b) { return salesByMonth2017[a] - salesByMonth2017[b] }).reverse()[0]
+    }, {})
+
+const monthWithMostSales = Object.keys(salesByMonth2017).sort(function (a, b) { return salesByMonth2017[b] - salesByMonth2017[a] })[0]
 
 console.log({ salesByMonth2017 })
 console.log({ monthWithMostSales })
